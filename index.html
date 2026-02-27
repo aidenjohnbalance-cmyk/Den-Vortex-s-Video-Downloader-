@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Den Vortex's Video Downloader</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #1e1e1e, #2c3e50);
+    color: white;
+    text-align: center;
+}
+
+.container {
+    padding: 40px;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+.caption {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+input {
+    width: 60%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+}
+
+button {
+    padding: 12px 20px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #00c896;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00a87a;
+}
+
+.preview {
+    margin-top: 30px;
+    display: none;
+}
+
+video, img {
+    max-width: 80%;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Den Vortex's Video Downloader</h1>
+    <p class="caption">
+        This is a website for downloading photos and videos for Instagram, TikTok, Facebook, and YouTube.
+        <br><br>
+        ⚠️ Only download content you own or have permission to use.
+    </p>
+
+    <input type="text" id="linkInput" placeholder="Paste your media link here...">
+    <br>
+    <button onclick="showPreview()">Download Photo / Video</button>
+
+    <div class="preview" id="previewSection">
+        <div id="mediaContainer"></div>
+        <br>
+        <a id="downloadBtn" download>
+            <button>Download</button>
+        </a>
+    </div>
+</div>
+
+<script>
+function showPreview() {
+    const link = document.getElementById("linkInput").value;
+    const preview = document.getElementById("previewSection");
+    const container = document.getElementById("mediaContainer");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    if (!link) {
+        alert("Please paste a valid media link.");
+        return;
+    }
+
+    container.innerHTML = "";
+
+    if (link.match(/\.(jpeg|jpg|png|gif)$/)) {
+        const img = document.createElement("img");
+        img.src = link;
+        container.appendChild(img);
+        downloadBtn.href = link;
+    } 
+    else if (link.match(/\.(mp4|webm|ogg)$/)) {
+        const video = document.createElement("video");
+        video.src = link;
+        video.controls = true;
+        container.appendChild(video);
+        downloadBtn.href = link;
+    } 
+    else {
+        alert("This demo only supports direct image or video file links.");
+        return;
+    }
+
+    preview.style.display = "block";
+}
+</script>
+
+</body>
+</html>
